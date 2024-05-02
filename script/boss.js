@@ -1,6 +1,10 @@
 var SpellSlots = 2; // Siirrä alustus silmukan ulkopuolelle
 
-for (var i = 3; i >= 0; i--) {
+var bossHP = 50
+var heroHP = 50
+
+
+function CastSpell() {
     if (SpellSlots > 0) {
         console.log("Casting spell")
         SpellSlots -= 1
@@ -9,3 +13,10 @@ for (var i = 3; i >= 0; i--) {
         console.log("Not enough spell slots to cast spell")
     }
 }
+
+function mainFight() {
+    while (bossHP > 0 && heroHP > 0) {
+    
+    }
+}
+
