@@ -1,3 +1,27 @@
-$primary: #900;
+$primary: rgb(105, 46, 150);
 
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+body {
+    background-color: rgb(48, 36, 57);
+    color:rgb(231, 214, 236)
+}
+
+.container {
+    border-radius: 25px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 16px 0 16px 0;
+}
+
+.heroCard, .bossCard {
+    background-color: rgb(214, 214, 214);
+    border: double $primary;
+    border-width: 5px;
+    display: inline-block;
+}
+
+.log {
+    border-radius: 25px;
+    border: 2px solid rgb(189, 189, 189);
+
+}
