@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BossFight</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/b8410a170b.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container text-center my-4">
+    <div class="container text-center my-4" data-bs-theme="dark">
         <div class="row my-3">
           <div class="col">
           </div>
           <div class="col-8">
-            <h1 class="display-3">Welcome to BossFight!</h1>
+            <h1 class="display-4">Welcome to BossFight!</h1>
                 <p class="lead">In the heart of the dark forest, amidst towering trees and swirling mist, the final showdown begins. The hero, clad in shining armor, squares off against the menacing boss, its form obscured by shadows but its presence palpable. With the fate of the realm hanging in the balance, the battle for victory commences.</p>
           </div>
           <div class="col">
+            <audio id="music" src="media/hitandrun.mp3" autoplay></audio>
+            <button id="pauseButton" class="btn btn-sm btn-outline-primary"><i class="fa fa-music"></i> <i class="fa fa-play"></i></button>
           </div>
         </div>
         <div class="row">
@@ -48,19 +51,23 @@
             <div class="col"></div>
             <div class="col-6 align-items-center text-center">
                 <div id="turnDisplay">
-                    <div class="alert alert-info" role="alert">
+                    <div class="alert alert-primary" role="alert">
                         It's your turn!
+                        <div class="my-3" id="actions">
+                            <button type="button" class="btn btn-primary mx-2" id="castSpell">Cast a spell</button>
+                            <button type="button" class="btn btn-primary mx-2" id="useWeapon">Use weapon</button>
+                        </div>
+                        
                     </div>    
                 </div>
               
-                <button type="button" class="btn btn-primary mx-2">Cast a spell</button>
-                <button type="button" class="btn btn-primary mx-2">Use weapon</button>
+
 
                 
                 
                 <div class="accordion" id="accordionExample" data-bs-theme="dark">
                     <div class="ability-buttons my-4">
-                        <h5 class="my-3">Abilities descriptions</h5>
+                        <h5 class="my-3">Ability descriptions</h5>
                         <button class="btn btn-secondary btn-sm collapsed mx-2" type="button" data-bs-toggle="collapse" data-bs-target="#meleeDescription" aria-expanded="false" aria-controls="meleeDescription">
                             Melee attack
                         </button>
@@ -105,7 +112,24 @@
             </div>
             <div class="col"></div>
         </div>
+        <div class="footer">
+            <p class="text-center">Made with ❤️ by: Hanna Korhonen | Music: Hit and Run by Hartzmann</p>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        var music = document.getElementById("music");
+        var pauseButton = document.getElementById("pauseButton");
+    
+        pauseButton.addEventListener("click", function() {
+            if (music.paused) {
+                music.play();
+                pauseButton.innerHTML = "<i class='fa fa-pause'></i>";
+            } else {
+                music.pause();
+                pauseButton.innerHTML = "<i class='fa fa-play'></i>";
+            }
+        });
+    </script>
 </body>
 </html>

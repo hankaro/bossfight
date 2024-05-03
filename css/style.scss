@@ -8,12 +8,17 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
-    background-color: #080715;
+    background-color: rgb(8, 7, 21);
+    color: white;
+}
+
+.display-4 {
     color:rgb(231, 214, 236)
 }
 
-h5 {
-    color: white;
+.lead {
+    font-size: 1rem;
+    color:rgb(231, 214, 236)
 }
 
 .container {
@@ -28,10 +33,11 @@ h5 {
 }
 
 .heroCard, .bossCard {
-    background-color: rgb(214, 214, 214);
     border: double $primary;
     border-width: 5px;
     display: inline-block;
+    margin: 0 10px;
+    background-color: rgba(8, 7, 21, 0.7);
 }
 
 .log {
@@ -48,4 +54,8 @@ h5 {
     border: 0;
     border-radius: 12px;
     background-color: rgba(20, 17, 26, 0.6);
+}
+
+.footer {
+    font-size: 0.8rem;
 }

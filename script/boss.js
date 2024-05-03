@@ -1,4 +1,4 @@
-
+// tulevaisuudessa: buff, shield, heal
 
 var hero = {
     spellSlots: 2,
