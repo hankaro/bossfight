@@ -11845,14 +11845,24 @@ textarea.form-control-lg {
   }
 }
 body {
-  background-color: rgb(48, 36, 57);
+  background-image: url("../img/bossfightbg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  background-color: #080715;
   color: rgb(231, 214, 236);
 }
 
 .container {
   border-radius: 25px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(20, 17, 26, 0.6);
   padding: 16px 0 16px 0;
+  /* From https://css.glass */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.3px);
+  -webkit-backdrop-filter: blur(3.3px);
+  border: 1px solid rgba(91, 84, 104, 0.3);
 }
 
 .heroCard, .bossCard {
