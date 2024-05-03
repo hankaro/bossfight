@@ -6,6 +6,7 @@
     <title>BossFight</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/b8410a170b.js" crossorigin="anonymous"></script>
+    <script src="script/boss.js" defer></script>
 </head>
 <body>
     <div class="container text-center my-4" data-bs-theme="dark">
@@ -16,65 +17,90 @@
             <h1 class="display-4">Welcome to BossFight!</h1>
                 <p class="lead">In the heart of the dark forest, amidst towering trees and swirling mist, the final showdown begins. The hero, clad in shining armor, squares off against the menacing boss, its form obscured by shadows but its presence palpable. With the fate of the realm hanging in the balance, the battle for victory commences.</p>
           </div>
-          <div class="col">
-            <audio id="music" src="media/hitandrun.mp3" autoplay></audio>
-            <button id="pauseButton" class="btn btn-sm btn-outline-primary"><i class="fa fa-music"></i> <i class="fa fa-play"></i></button>
+          <div class="col d-flex justify-content-end">
+            <div class="audiocontrols">
+                <audio id="music" src="media/hitandrun.mp3" autoplay></audio>
+                <button id="pauseButton" class="btn btn-sm btn-outline-primary"><i class="fa fa-music"></i> <i class="fa fa-play"></i></button>
+            </div>
           </div>
         </div>
+
+        <!-- Cards -->
+
         <div class="row">
             <div class="col"></div>
             <div class="col-8">
-                <div class="card heroCard" style="width: 18rem;">
+                <div class="card heroCard">
                     <img src="img/HeroAvatar.png" class="card-img-top" alt="The Hero">
                     <div class="card-body">
                     <h5 class="card-title">Hero</h5>
-                    <div class="progress" role="progressbar" aria-label="Hero HP" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-success" style="width: 100%">50 HP</div>
+                    <div class="progress mb-2" role="progressbar" aria-label="Hero HP" aria-valuenow="40" aria-valuemin="0" aria-valuemax="40" id="heroBar">
+                        <div class="progress-bar bg-success" style="width: 100%">
+                            <span>40 HP</span>
+                        </div>
                       </div>
-                    <span class="card-text">Spell slots: 2</span>
+                    <span class="card-text my-2" id="heroSpellSlots">Spell slots: 2</span>
                     </div>
                 </div>
-                <div class="card bossCard" style="width: 18rem;">
+                <div class="card bossCard">
                     <img src="img/BossAvatar.png" class="card-img-top" alt="The Boss">
                     <div class="card-body">
                         <h5 class="card-title">Boss</h5>
-                        <div class="progress" role="progressbar" aria-label="Hero HP" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                            <div class="progress-bar bg-success" style="width: 100%">50 HP</div>
+                        <div class="progress mb-2" role="progressbar" aria-label="Hero HP" aria-valuenow="40" aria-valuemin="0" aria-valuemax="40">
+                            <div class="progress-bar bg-success overflow-visible text-center" style="width: 100%" id="bossBar">
+                                <span>40 HP</span>
+                            </div>
                           </div>
-                        <span class="card-text">Spell slots: 2</span>
+                        <span class="card-text my-2" id="bossSpellSlots">Spell slots: 2</span>
                     </div>
                 </div>
             </div>
             <div class="col"></div>
         </div>
+
+        <!-- Actions -->
+
         <div class="row my-3">
             <div class="col"></div>
             <div class="col-6 align-items-center text-center">
-                <div id="turnDisplay">
-                    <div class="alert alert-primary" role="alert">
-                        It's your turn!
-                        <div class="my-3" id="actions">
-                            <button type="button" class="btn btn-primary mx-2" id="castSpell">Cast a spell</button>
-                            <button type="button" class="btn btn-primary mx-2" id="useWeapon">Use weapon</button>
-                        </div>
+                <div id="beginning" class="display-none"><button type="button" class="btn btn-primary btn-lg" id="startButton">Fight!</button></div>
+                <div id="turnDisplay" >
+                    <div class="alert alert-primary" role="alert" id="turnAlert">
+                        <strong id="turnHeading">It's your turn!</strong>
+                        <div id="turnText">-</div>
+                       <!-- Counterspell 
                         
-                    </div>    
+                        <div class="counterspell-hide" id="csButtons">
+                        <button type="button" class="btn btn-outline-primary" id="counterspellCancel">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="counterspell">Use Counterspell!</button>
+                        </div>
+                        --> 
+
+                    </div>     
+                    <div class="my-3" id="actions">
+                        <h6>Available actions:</h6>
+                        <button type="button" class="btn btn-primary mx-2" id="castSpellButton">Cast a spell</button>
+                        <button type="button" class="btn btn-primary mx-2" id="useWeaponButton">Use weapon</button>
+                    </div>
                 </div>
               
 
 
                 
+                <hr class="my-4">
                 
-                <div class="accordion" id="accordionExample" data-bs-theme="dark">
-                    <div class="ability-buttons my-4">
-                        <h5 class="my-3">Ability descriptions</h5>
-                        <button class="btn btn-secondary btn-sm collapsed mx-2" type="button" data-bs-toggle="collapse" data-bs-target="#meleeDescription" aria-expanded="false" aria-controls="meleeDescription">
+                <!-- Abilities explained -->
+
+                <div class="accordion my-2" id="accordionExample" data-bs-theme="dark">
+                    <div class="ability-buttons my-2">
+                        <div class="my-1 ability-heading">Ability descriptions:</div>
+                        <button class="btn btn-outline-light btn-sm collapsed mx-1 ability-button" type="button" data-bs-toggle="collapse" data-bs-target="#meleeDescription" aria-expanded="false" aria-controls="meleeDescription">
                             Melee attack
                         </button>
-                        <button class="btn btn-warning btn-sm collapsed mx-2" type="button" data-bs-toggle="collapse" data-bs-target="#fireballDescription" aria-expanded="false" aria-controls="fireballDescription">
+                        <button class="btn btn-outline-warning btn-sm collapsed mx-1 ability-button" type="button" data-bs-toggle="collapse" data-bs-target="#fireballDescription" aria-expanded="false" aria-controls="fireballDescription">
                             Fireball
                         </button>
-                        <button class="btn btn-info btn-sm collapsed mx-2" type="button" data-bs-toggle="collapse" data-bs-target="#counterspellDescription" aria-expanded="false" aria-controls="counterspellDescription">
+                        <button class="btn btn-outline-info btn-sm collapsed mx-1 ability-button" type="button" data-bs-toggle="collapse" data-bs-target="#counterspellDescription" aria-expanded="false" aria-controls="counterspellDescription">
                             Counterspell
                         </button>
                     </div>
@@ -117,19 +143,5 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
-        var music = document.getElementById("music");
-        var pauseButton = document.getElementById("pauseButton");
-    
-        pauseButton.addEventListener("click", function() {
-            if (music.paused) {
-                music.play();
-                pauseButton.innerHTML = "<i class='fa fa-pause'></i>";
-            } else {
-                music.pause();
-                pauseButton.innerHTML = "<i class='fa fa-play'></i>";
-            }
-        });
-    </script>
 </body>
 </html>

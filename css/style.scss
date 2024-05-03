@@ -32,12 +32,17 @@ body {
     border: 1px solid rgba(91, 84, 104, 0.3);
 }
 
+.audiocontrols {
+    margin-right:24px;
+}
+
 .heroCard, .bossCard {
     border: double $primary;
     border-width: 5px;
     display: inline-block;
     margin: 0 10px;
     background-color: rgba(8, 7, 21, 0.7);
+    width: 18rem;
 }
 
 .log {
@@ -46,8 +51,23 @@ body {
 
 }
 
+.counterspell-hide {
+    display: none;
+}
+
 .abilities-desc-wrapper {
     min-height: 60px;
+}
+
+.ability-heading {
+    font-size: 0.9rem;
+    color:#dcdcdc;
+}
+
+.ability-button {
+    font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 16px;
 }
 
 .ability-description {
@@ -58,4 +78,8 @@ body {
 
 .footer {
     font-size: 0.8rem;
+}
+
+.display-none {
+    display: none;
 }
