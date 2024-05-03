@@ -12,6 +12,10 @@ body {
     color:rgb(231, 214, 236)
 }
 
+h5 {
+    color: white;
+}
+
 .container {
     border-radius: 25px;
     background-color: rgba(20, 17, 26, 0.6);
@@ -34,4 +38,14 @@ body {
     border-radius: 25px;
     border: 2px solid rgb(189, 189, 189);
 
+}
+
+.abilities-desc-wrapper {
+    min-height: 60px;
+}
+
+.ability-description {
+    border: 0;
+    border-radius: 12px;
+    background-color: rgba(20, 17, 26, 0.6);
 }

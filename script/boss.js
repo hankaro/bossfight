@@ -1,7 +1,14 @@
-var bossSpellSlots = 2;
-var heroSpellSlots = 2;
-var bossHP = 50;
-var heroHP = 50;
+
+
+var hero = {
+    spellSlots: 2,
+    hp: 40
+}
+
+var boss = {
+    spellSlots: 2,
+    hp: 40
+}
 
 function hitDice() {
     var roll = Math.ceil(Math.random() * 20)
@@ -22,35 +29,95 @@ function dmgDiceSpell() {
     return Math.ceil(Math.random() * 16)
 }
 
+function bossAttack() {
+    if (boss.spellSlots > 0) {
+        var desicion = Math.random()
+        if (desicion > 0.5) {
+            var spellHits = hitDice()
+            if (spellHits){
+                //if (hero.spellSlots > 0) {
+                //    console.log("Boss is casting a spell. Want to cast a Counterspell (costs 1 spell slot)?")
+                //}
+                var spellDmg = dmgDiceSpell()
+                console.log("Boss spell hit for " + spellDmg + " damage")
+                hero.hp -= spellDmg
+            }
+        }
+        else {
+            var meleeHits = hitDice()
+            if (meleeHits) {
+                var meleeDmg = dmgDiceMelee()
+                console.log("Boss attack hit for " + meleeDmg + " damage")
+                hero.hp -= meleeDmg
+            }
+        }
+    }
+}
 
-function CastSpell() {
-    if (heroSpellSlots > 0) {
+
+function castSpell() {
+    if (hero.spellSlots > 0) {
         console.log("Casting spell")
         var hits = hitDice()
         if (hits) {
             var dmg = dmgDiceSpell()
             console.log("Spell hit for " + dmg + " damage")
-            bossHP -= dmg
-            console.log("Boss HP: " + bossHP)
+            boss.hp -= dmg
         }
         else {
             console.log("Spell missed")
         }
-        heroSpellSlots -= 1
+        hero.spellSlots -= 1
     }
     else {
         console.log("Not enough spell slots to cast spell")
     }
 }
 
+function useWeapon() {
+    var hits = hitDice()
+    if (hits) {
+        var dmg = dmgDiceMelee()
+        console.log("Melee hit for " + dmg + " damage")
+        boss.hp -= dmg
+    }
+    else {
+        console.log("You miss!")
+    }
+}
+
 function mainFight() {
-    while (bossHP > 0 && heroHP > 0) {
+    while (boss.hp > 0 && hero.hp > 0) {
         //liiba
     }
 }
 
-while (heroSpellSlots > 0) {
-    CastSpell ()
-    console.log("Boss HP: " + bossHP)
-    console.log("Spellslots: " + heroSpellSlots)
+var round = 1
+
+while (boss.hp > 0 && hero.hp > 0) {
+    console.log("Round " + round)
+
+    
+    if (hero.spellSlots > 0) {
+        castSpell()
+        console.log("Spellslots: " + hero.spellSlots)
+    }
+    else {
+        useWeapon()
+    }
+    console.log("Boss hp: " + boss.hp)
+    console.log("")
+
+    console.log("Boss attack:")
+    bossAttack()
+    console.log("Hero hp: " + hero.hp)
+    round += 1
+    console.log("------------------")
+}
+
+if (hero.hp > boss.hp) {
+    console.log("You won!")
+}
+else {
+    console.log("You lost!")
 }
