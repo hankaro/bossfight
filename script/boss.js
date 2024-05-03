@@ -30,17 +30,19 @@ function dmgDiceSpell() {
 }
 
 
-var startView = document.querySelector('#beginning');
-var turnDisplay = document.querySelector('#turnDisplay');
+//var startView = document.querySelector('#beginning');
+//var turnDisplay = document.querySelector('#turnDisplay');
 
-var alert = document.querySelector('#turnAlert');
-var alertHeading = alert.querySelector('#turnHeading');
-var alertText = alert.querySelector('#turnText');
+var turnAlert = document.querySelector('#turnAlert');
+var alertHeading = turnAlert.querySelector('#turnHeading');
+var alertText = turnAlert.querySelector('#turnText');
 
-var turn = "hero"
+var turn = ""
 
+const actionsDiv = document.getElementById('actions');
 const castSpellButton = document.getElementById('castSpellButton');
 const useWeaponButton = document.getElementById('useWeaponButton');
+
 
 //const startButton = document.getElementById('startButton');
 // startButton.addEventListener('click', function() {
@@ -50,16 +52,18 @@ const useWeaponButton = document.getElementById('useWeaponButton');
 
 function changeTurn() {
     if (turn === "hero") {
-        alert.classList.remove('alert-primary');
-        alert.classList.add('alert-danger');
-        alertHeading.textContent = "Boss attack:"
-        alertText.textContent = "..."
+        turnAlert.classList.remove('alert-primary');
+        turnAlert.classList.add('alert-danger');
+        alertHeading.textContent = "Boss attack:";
+        alertText.textContent = "...";
     }
-    else {
-        alert.classList.remove('alert-danger');
-        alert.classList.add('alert-primary');
-        alertHeading.textContent = "Your Turn!"
-        alertText.textContent = "..."
+    else if (turn === "boss") {
+        turnAlert.classList.remove('alert-danger');
+        turnAlert.classList.add('alert-primary');
+        alertHeading.textContent = "Your Turn!";
+        alertText.textContent = "...";
+        castSpellButton.classList.remove('disabled');
+        useWeaponButton.classList.remove('disabled');
     }
 }
 
@@ -120,9 +124,11 @@ function castSpell() {
             console.log("Spell hit for " + dmg + " damage")
             boss.hp -= dmg
             console.log("Boss HP: " + boss.hp + "/40")
+            alertText.textContent = "Spell hit for " + dmg + " damage"
         }
         else {
             console.log("Spell missed")
+            alertText.textContent = "Spell missed"
         }
         hero.spellSlots -= 1
     }
@@ -138,9 +144,11 @@ function useWeapon() {
         console.log("Melee hit for " + dmg + " damage")
         boss.hp -= dmg
         console.log("Boss HP: " + boss.hp + "/40")
+        alertText.textContent = "Melee hit for " + dmg + " damage"
     }
     else {
         console.log("You miss!")
+        alertText.textContent = "You miss!"
     }
 }
 
@@ -166,36 +174,38 @@ function updateBossHp() {
 }
 
 function updateHeroHp() {
-    var bar = document.querySelector('#heroBar');
-    var hpText = bar.querySelector('span');
+    var herobar = document.querySelector('#heroBar');
+    var hpText = herobar.querySelector('span');
     var hpPercent = Math.floor(hero.hp / 40 * 100)
     if (hero.hp < 0) {
         hpPercent = 0
         hero.hp = 0
     }
-    bar.style.width = hpPercent + "%";
+    herobar.style.width = hpPercent + "%";
     hpText.textContent = hero.hp + " HP";
     if (hpPercent <= 50) {
-        bar.classList.remove('bg-success');
-        bar.classList.add('bg-warning');
+        console.log("hpPercent below 50")
+        herobar.classList.remove('bg-success');
+        herobar.classList.add('bg-warning');
     }
     if (hpPercent <= 25) {
-        bar.classList.remove('bg-warning');
-        bar.classList.add('bg-danger');
+        herobar.classList.remove('bg-warning');
+        herobar.classList.add('bg-danger');
     }
 
 }
 
 function gameOver() {
-    alert.classList.remove('alert-primary');
-    alert.classList.remove('alert-danger');
+    actionsDiv.classList.add('display-none');
+    turnAlert.classList.remove('alert-primary');
+    turnAlert.classList.remove('alert-danger');
     if (hero.hp <= 0) {
-        alert.classList.add('alert-danger');
+        turnAlert.classList.add('alert-dark');
         alertHeading.textContent = "Game over!"
         alertText.textContent = "You lost!"
     }
     if (boss.hp <= 0) {
-        alert.classList.add('alert-success');
+        turnAlert.classList.add('alert-success');
         alertHeading.textContent = "Game over!"
         alertText.textContent = "You won!"
     }
@@ -224,6 +234,9 @@ function checkWinLoss() {
 // HERO CLICKS
 
 castSpellButton.addEventListener('click', function() {
+    turn = "hero"
+    castSpellButton.classList.add('disabled');
+    useWeaponButton.classList.add('disabled');
     castSpell();
     updateBossHp();
     var proceedGame = checkWinLoss();
@@ -239,6 +252,9 @@ castSpellButton.addEventListener('click', function() {
 });
 
 useWeaponButton.addEventListener('click', function() {
+    turn = "hero"
+    castSpellButton.classList.add('disabled');
+    useWeaponButton.classList.add('disabled');
     useWeapon();
     updateBossHp();
     var proceedGame = checkWinLoss()
