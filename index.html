@@ -68,20 +68,19 @@
                     <div class="alert alert-primary" role="alert" id="turnAlert">
                         <strong id="turnHeading">It's your turn!</strong>
                         <div id="turnText">-</div>
-                       <!-- Counterspell 
-                        
-                        <div class="counterspell-hide" id="csButtons">
+                        <div class="my-3" id="actions">
+                            <h6>Available actions:</h6>
+                            <button type="button" class="btn btn-primary mx-2" id="castSpellButton">Cast a spell</button>
+                            <button type="button" class="btn btn-primary mx-2" id="useWeaponButton">Use weapon</button>
+                        </div>
+                        <!-- Counterspell
+                        <div class="display-none" id="csButtons">
                         <button type="button" class="btn btn-outline-primary" id="counterspellCancel">Cancel</button>
                         <button type="button" class="btn btn-primary" id="counterspell">Use Counterspell!</button>
                         </div>
-                        --> 
+                         -->
 
                     </div>     
-                    <div class="my-3" id="actions">
-                        <h6>Available actions:</h6>
-                        <button type="button" class="btn btn-primary mx-2" id="castSpellButton">Cast a spell</button>
-                        <button type="button" class="btn btn-primary mx-2" id="useWeaponButton">Use weapon</button>
-                    </div>
                 </div>
               
 
@@ -100,7 +99,7 @@
                         <button class="btn btn-outline-warning btn-sm collapsed mx-1 ability-button" type="button" data-bs-toggle="collapse" data-bs-target="#fireballDescription" aria-expanded="false" aria-controls="fireballDescription">
                             Fireball
                         </button>
-                        <button class="btn btn-outline-info btn-sm collapsed mx-1 ability-button" type="button" data-bs-toggle="collapse" data-bs-target="#counterspellDescription" aria-expanded="false" aria-controls="counterspellDescription">
+                        <button class="btn btn-outline-info btn-sm collapsed mx-1 ability-button display-none" type="button" data-bs-toggle="collapse" data-bs-target="#counterspellDescription" aria-expanded="false" aria-controls="counterspellDescription">
                             Counterspell
                         </button>
                     </div>

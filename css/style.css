@@ -11892,10 +11892,6 @@ body {
   border: 2px solid rgb(189, 189, 189);
 }
 
-.counterspell-hide {
-  display: none;
-}
-
 .abilities-desc-wrapper {
   min-height: 60px;
 }

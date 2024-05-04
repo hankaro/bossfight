@@ -1,5 +1,7 @@
 // tulevaisuudessa: buff, shield, heal
 
+//TODO: SPellslot counter, Retry button on gameover
+
 var hero = {
     spellSlots: 2,
     hp: 40
@@ -40,14 +42,13 @@ var alertText = turnAlert.querySelector('#turnText');
 var turn = ""
 
 const actionsDiv = document.getElementById('actions');
+//const counterSpellDiv = document.getElementById('csButtons');
 const castSpellButton = document.getElementById('castSpellButton');
 const useWeaponButton = document.getElementById('useWeaponButton');
-
-
-//const startButton = document.getElementById('startButton');
-// startButton.addEventListener('click', function() {
-//    heroAttack()
-// })
+const heroSpellSlots = document.getElementById('heroSpellSlots');
+const bossSpellSlots = document.getElementById('bossSpellSlots');
+// const countersSpellButton = document.getElementById('counterspell');
+// const counterSpellCancelButton = document.getElementById('counterspellCancel');
 
 
 function changeTurn() {
@@ -56,48 +57,42 @@ function changeTurn() {
         turnAlert.classList.add('alert-danger');
         alertHeading.textContent = "Boss attack:";
         alertText.textContent = "...";
+        actionsDiv.classList.add('display-none');
     }
     else if (turn === "boss") {
         turnAlert.classList.remove('alert-danger');
         turnAlert.classList.add('alert-primary');
         alertHeading.textContent = "Your Turn!";
         alertText.textContent = "...";
-        castSpellButton.classList.remove('disabled');
-        useWeaponButton.classList.remove('disabled');
+        actionsDiv.classList.remove('display-none');
+        if (hero.spellSlots > 0) {
+            castSpellButton.classList.remove('disabled');
+            useWeaponButton.classList.remove('disabled');
+        }
+        else {
+            useWeaponButton.classList.remove('disabled');
+            castSpellButton.classList.remove('btn-primary');
+            castSpellButton.classList.add('btn-outline-primary');
+            castSpellButton.textContent = "No spell slots";
+        }
     }
 }
 
 
 function bossAttack() {
     turn = "boss"
+    console.log("Boss attack")
     if (boss.spellSlots > 0) {
         var desicion = Math.random()
         if (desicion > 0.5) {
-            var spellHits = hitDice()
-            if (spellHits){
-                var spellDmg = dmgDiceSpell()
-                console.log("Boss spell hit for " + spellDmg + " damage")
-                alertText.textContent = "Boss spell hit for " + spellDmg + " damage"
-                hero.hp -= spellDmg
-            }
-            else {
-                console.log("Boss attack missed")
-                alertText.textContent = "Boss attack missed"
-            }
+            bossSpellAttack()
         }
         else {
-            var meleeHits = hitDice()
-            if (meleeHits) {
-                var meleeDmg = dmgDiceMelee()
-                console.log("Boss attack hit for " + meleeDmg + " damage")
-                alertText.textContent = "Boss attack hit for " + meleeDmg + " damage"
-                hero.hp -= meleeDmg
-            }
-            else {
-                console.log("Boss attack missed")
-                alertText.textContent = "Boss attack missed"
+            bossMeleeAttack()
             }
         }
+    else {
+        bossMeleeAttack()   
     }
     updateHeroHp()
     var proceedGame = checkWinLoss()
@@ -109,9 +104,46 @@ function bossAttack() {
             gameOver()
         }
       }, "3000");
-      
-   
+}
+    
 
+
+function bossSpellAttack() {
+    var spellHits = hitDice();
+    if (spellHits) {
+        var spellDmg = dmgDiceSpell();
+        console.log("Boss spell hit for " + spellDmg + " damage");
+        alertHeading.textContent = "Boss attacks you with a spell!";
+        alertText.textContent = "Boss spell hit for " + spellDmg + " damage";
+        hero.hp -= spellDmg;
+        boss.spellSlots -= 1;
+        bossSpellSlots.textContent = "Spell slots: " + boss.spellSlots;
+        console.log("Boss spell slots: " + boss.spellSlots);
+    } else {
+        console.log("Boss attack missed");
+        alertHeading.textContent = "Boss tried to hit you with a spell.";
+        alertText.textContent = "Boss attack missed";
+        boss.spellSlots -= 1;
+        bossSpellSlots.textContent = "Spell slots: " + boss.spellSlots;
+        console.log("Boss spell slots: " + boss.spellSlots);
+    }
+}
+
+
+function bossMeleeAttack() {
+    var meleeHits = hitDice()
+    if (meleeHits) {
+        var meleeDmg = dmgDiceMelee()
+        console.log("Boss attack hit for " + meleeDmg + " damage")
+        alertHeading.textContent = "Boss attacks you with its sword!"
+        alertText.textContent = "Boss attack hit for " + meleeDmg + " damage"
+        hero.hp -= meleeDmg
+    }
+    else {
+        console.log("Boss attack missed")
+        alertHeading.textContent = "Boss tried to hit you with its sword!"
+        alertText.textContent = "Boss attack missed"
+}
 }
 
 
@@ -124,13 +156,16 @@ function castSpell() {
             console.log("Spell hit for " + dmg + " damage")
             boss.hp -= dmg
             console.log("Boss HP: " + boss.hp + "/40")
+            alertHeading.textContent = "You casted Fireball!"
             alertText.textContent = "Spell hit for " + dmg + " damage"
         }
         else {
             console.log("Spell missed")
+            alertHeading.textContent = "You casted Fireball!"
             alertText.textContent = "Spell missed"
         }
         hero.spellSlots -= 1
+        heroSpellSlots.textContent = "Spell slots: " + hero.spellSlots
     }
     else {
         console.log("Not enough spell slots to cast spell")
@@ -144,10 +179,12 @@ function useWeapon() {
         console.log("Melee hit for " + dmg + " damage")
         boss.hp -= dmg
         console.log("Boss HP: " + boss.hp + "/40")
+        alertHeading.textContent = "You hit the boss with your sword!"
         alertText.textContent = "Melee hit for " + dmg + " damage"
     }
     else {
         console.log("You miss!")
+        alertHeading.textContent = "You tried to hit the boss with your sword."
         alertText.textContent = "You miss!"
     }
 }
