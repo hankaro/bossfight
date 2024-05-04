@@ -47,6 +47,9 @@ const castSpellButton = document.getElementById('castSpellButton');
 const useWeaponButton = document.getElementById('useWeaponButton');
 const heroSpellSlots = document.getElementById('heroSpellSlots');
 const bossSpellSlots = document.getElementById('bossSpellSlots');
+
+const tryAgainDiv = document.getElementById('tryAgain');
+const tryAgainButton = document.getElementById('tryAgainButton');
 // const countersSpellButton = document.getElementById('counterspell');
 // const counterSpellCancelButton = document.getElementById('counterspellCancel');
 
@@ -236,6 +239,8 @@ function gameOver() {
     actionsDiv.classList.add('display-none');
     turnAlert.classList.remove('alert-primary');
     turnAlert.classList.remove('alert-danger');
+    tryAgainDiv.classList.remove('display-none');
+    tryAgainButton.addEventListener('click', tryaAgain);
     if (hero.hp <= 0) {
         turnAlert.classList.add('alert-dark');
         alertHeading.textContent = "Game over!"
@@ -322,65 +327,6 @@ var music = document.getElementById("music");
         }
     });
 
-
-
-
-
-
-    /* Game test
-var round = 1
-
-while (boss.hp > 0 && hero.hp > 0) {
-    console.log("Round " + round)
-
-    
-    if (hero.spellSlots > 0) {
-        castSpell()
-        console.log("Spellslots: " + hero.spellSlots)
-    }
-    else {
-        useWeapon()
-    }
-    console.log("Boss hp: " + boss.hp)
-    updateBossHp()
-    console.log("")
-
-    console.log("Boss attack:")
-    bossAttack()
-    console.log("Hero hp: " + hero.hp)
-    round += 1
-    console.log("------------------")
-    checkWinLoss()
+function tryaAgain() {
+    location.reload();
 }
-
-*/
-
-/*
-
-COUNTERSPELL KAMAT 
-
-var counterspell = alert.querySelector('#csButtons');
-const counterSpellButton = document.getElementById('counterspell');
-const counterSpellCancelButton = document.getElementById('counterspellCancel');
-
-if (hero.spellSlots > 0) {
-    alertText.textContent = "Boss is going to cast a spell. Do you want to use counterspell? (Costs 1 spell slot)"
-    counterspell.classList.remove('counterspell-hide')
-    counterSpellButton.addEventListener('click', function() {
-        alertText.textContent = "Used counterspell!"
-        counterspell.classList.add('counterspell-hide')
-    })
-    counterSpellCancelButton.addEventListener('click', function() {
-        counterspell.classList.add('counterspell-hide')
-        console.log("Boss spell hit for " + spellDmg + " damage")
-        alertText.textContent = "Boss spell hit for " + spellDmg + " damage"
-        hero.hp -= spellDmg
-    })
-}
-else {
-    var spellDmg = dmgDiceSpell()
-    console.log("Boss spell hit for " + spellDmg + " damage")
-    alertText.textContent = "Boss spell hit for " + spellDmg + " damage"
-    hero.hp -= spellDmg
-}
-*/
