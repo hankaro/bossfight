@@ -11919,4 +11919,8 @@ body {
 
 .display-none {
   display: none;
+}
+
+.turn-frame {
+  height: 180px;
 }/*# sourceMappingURL=style.css.map */
