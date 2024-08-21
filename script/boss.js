@@ -2,18 +2,18 @@
 
 //TODO: SPellslot counter, Retry button on gameover
 
-var hero = {
+let hero = {
     spellSlots: 2,
     hp: 40
 }
 
-var boss = {
+let boss = {
     spellSlots: 2,
     hp: 40
 }
 
 function hitDice() {
-    var roll = Math.ceil(Math.random() * 20)
+    let roll = Math.ceil(Math.random() * 20)
     if (roll >= 10) {
         return true
     }
@@ -35,11 +35,11 @@ function dmgDiceSpell() {
 //var startView = document.querySelector('#beginning');
 //var turnDisplay = document.querySelector('#turnDisplay');
 
-var turnAlert = document.querySelector('#turnAlert');
-var alertHeading = turnAlert.querySelector('#turnHeading');
-var alertText = turnAlert.querySelector('#turnText');
+const turnAlert = document.querySelector('#turnAlert');
+const alertHeading = turnAlert.querySelector('#turnHeading');
+const alertText = turnAlert.querySelector('#turnText');
 
-var turn = ""
+let turn = ""
 
 const actionsDiv = document.getElementById('actions');
 //const counterSpellDiv = document.getElementById('csButtons');
@@ -86,7 +86,7 @@ function bossAttack() {
     turn = "boss"
     console.log("Boss attack")
     if (boss.spellSlots > 0) {
-        var desicion = Math.random()
+        let desicion = Math.random()
         if (desicion > 0.5) {
             bossSpellAttack()
         }
@@ -98,7 +98,7 @@ function bossAttack() {
         bossMeleeAttack()   
     }
     updateHeroHp()
-    var proceedGame = checkWinLoss()
+    let proceedGame = checkWinLoss()
     setTimeout(() => {
         if (proceedGame) {
             changeTurn()
@@ -112,9 +112,9 @@ function bossAttack() {
 
 
 function bossSpellAttack() {
-    var spellHits = hitDice();
+    let spellHits = hitDice();
     if (spellHits) {
-        var spellDmg = dmgDiceSpell();
+        let spellDmg = dmgDiceSpell();
         console.log("Boss spell hit for " + spellDmg + " damage");
         alertHeading.textContent = "Boss attacks you with a spell!";
         alertText.textContent = "Boss spell hit for " + spellDmg + " damage";
@@ -134,9 +134,9 @@ function bossSpellAttack() {
 
 
 function bossMeleeAttack() {
-    var meleeHits = hitDice()
+    let meleeHits = hitDice()
     if (meleeHits) {
-        var meleeDmg = dmgDiceMelee()
+        let meleeDmg = dmgDiceMelee()
         console.log("Boss attack hit for " + meleeDmg + " damage")
         alertHeading.textContent = "Boss attacks you with its sword!"
         alertText.textContent = "Boss attack hit for " + meleeDmg + " damage"
@@ -153,9 +153,9 @@ function bossMeleeAttack() {
 function castSpell() {
     if (hero.spellSlots > 0) {
         console.log("Casting spell")
-        var hits = hitDice()
+        let hits = hitDice()
         if (hits) {
-            var dmg = dmgDiceSpell()
+            let dmg = dmgDiceSpell()
             console.log("Spell hit for " + dmg + " damage")
             boss.hp -= dmg
             console.log("Boss HP: " + boss.hp + "/40")
@@ -176,9 +176,9 @@ function castSpell() {
 }
 
 function useWeapon() {
-    var hits = hitDice()
+    let hits = hitDice()
     if (hits) {
-        var dmg = dmgDiceMelee()
+        let dmg = dmgDiceMelee()
         console.log("Melee hit for " + dmg + " damage")
         boss.hp -= dmg
         console.log("Boss HP: " + boss.hp + "/40")
@@ -193,9 +193,9 @@ function useWeapon() {
 }
 
 function updateBossHp() {
-    var bar = document.querySelector('#bossBar');
-    var hpText = bar.querySelector('span');
-    var hpPercent = Math.floor(boss.hp / 40 * 100)
+    let bar = document.querySelector('#bossBar');
+    let hpText = bar.querySelector('span');
+    let hpPercent = Math.floor(boss.hp / 40 * 100)
     if (boss.hp < 0) {
         hpPercent = 0
         boss.hp = 0
@@ -214,9 +214,9 @@ function updateBossHp() {
 }
 
 function updateHeroHp() {
-    var herobar = document.querySelector('#heroBar');
-    var hpText = herobar.querySelector('span');
-    var hpPercent = Math.floor(hero.hp / 40 * 100)
+    let herobar = document.querySelector('#heroBar');
+    let hpText = herobar.querySelector('span');
+    let hpPercent = Math.floor(hero.hp / 40 * 100)
     if (hero.hp < 0) {
         hpPercent = 0
         hero.hp = 0
@@ -255,7 +255,7 @@ function gameOver() {
     }
 
 function checkWinLoss() {
-    var gameStatus = true
+    let gameStatus = true
     if (hero.hp <= 0) {
         gameStatus = false
         console.log("You lost!");
@@ -281,7 +281,7 @@ castSpellButton.addEventListener('click', function() {
     useWeaponButton.classList.add('disabled');
     castSpell();
     updateBossHp();
-    var proceedGame = checkWinLoss();
+    let proceedGame = checkWinLoss();
     setTimeout(() => {
         if (proceedGame) {
             changeTurn()
@@ -299,7 +299,7 @@ useWeaponButton.addEventListener('click', function() {
     useWeaponButton.classList.add('disabled');
     useWeapon();
     updateBossHp();
-    var proceedGame = checkWinLoss()
+    let proceedGame = checkWinLoss()
     setTimeout(() => {
         if (proceedGame) {
             changeTurn()
@@ -314,8 +314,8 @@ useWeaponButton.addEventListener('click', function() {
 
 // AUDIO PLAYER
 
-var music = document.getElementById("music");
-    var pauseButton = document.getElementById("pauseButton");
+let music = document.getElementById("music");
+    let pauseButton = document.getElementById("pauseButton");
 
     pauseButton.addEventListener("click", function() {
         if (music.paused) {
